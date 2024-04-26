@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>Typography, Ink and Paper - Case for old books</title>
+		<title>Microservice vs Shared Library: Companies House Use Case</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -17,8 +17,10 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-          <h1>Typography, Ink and Paper</h1>
-          <h3>A Case for Old Books 📜</h3>
+          <h1>Microservices</h1>
+          <h3>vs 🥊</h3>
+          <h1>Shared Libraries</h1>
+          <h3>Companies House Use Case</h3>
           <h4 style="padding: 2em 0;">
             Tayfun Sen
           </h4>
@@ -26,166 +28,136 @@
         </section>
 
 				<section>
-          <h2>Reading and Literacy</h2>
+          <h2>How it all started</h2>
 
-          <p>It's amazing how society decided to teach kids reading as the first intellectual skill 📖✨</p>
+          <p>Few months back...<br><br>Feature for Loan Origination (RIP!) using Companies House APIs</p>
 
-          <p>
-
-          </p>
+          <aside class="notes">Usual suspects of features, querying an API, auto-complete etc. How hard can it be?</aside>
         </section>
 
 				<section>
+          <h2>I ran into many problems...<br><br></h2>
           <p>
-            What I want to expose here is something else, a well kept secret 🤫
-          </p>
-        </section>
 
-				<section>
-          <p>
-            Tech makes most stuff better 👾 <br>
-            (sorry Arav, and the rest of the vinyl gang! 🎶)
+            <ul style="font-size: 75%;">
+              <li>Rate limiting (restricted to a few hundred queries a minute)</li>
+              <li>API key management</li>
+              <li>response caching</li>
+              <li>response transformation / sorting</li>
+              <li>response validation</li>
+              <li>pagination</li>
+              <li>error handling</li>
+              <li>logging</li>
+              <li>response mocking /  tests</li>
+              <li>... and many more</li>
+            </ul>
           </p>
-          <img style="width: 60%;" src="images/chatgpt-vinyl-cd1.jpeg" />
 
+          <aside class="notes">Things are never as simple as they look</aside>
         </section>
 
         <section>
-          <p>🫠</p>
-          <img style="width: 60%;" src="images/chatgpt-vinyl-cd2.jpeg" />
+          <h2>Back then, what did I do?</h2>
+          <p>
+            <ul style="font-size: 100%;">
+              <li>Mostly implement the simplest solution</li>
+              <li>Found a few repos where we use CH, in different ways</li>
+              <li><a href="https://oaknorth-bank.atlassian.net/wiki/spaces/PF/pages/305856857/Companies+House+integration">Document and share my learnings</a></li>
+              <li>Bide my time :D</li>
+            </ul>
+          </p>
+
+          <aside class="notes">Do the least while learning</aside>
         </section>
 
-				<section>
+        <section>
+          <h2>Back to the future 🕰️</h2>
           <p>
-            Tapes, vinyl etc. are hard to use!
+            <ul style="font-size: 100%;">
+              <li>We need another CH feature, this time for Term Sheets</li>
+              <li>First instinct: Piggy back on another service (cdd-business-knowledge)</li>
+              <li>After discussions we decide to implement on our side</li>
+              <li>There was also a recent post-mortem - Companies House went down and various parts of mobile app broke</li>
+            </ul>
           </p>
-          <p>
-            I don't even own a cd player 📀
-          </p>
+
+          <aside class="notes">We actually did piggy-back for a while. But the cdd-business-knowledge service has other plans including migrating parts of it to Customer Platform.</aside>
         </section>
 
-				<section>
+        <section>
+          <h2>What are the options?</h2>
           <p>
-            But books are different!
-          </p>
-          <p>
-            Books are one thing -maybe the only thing- where old is better!
-          </p>
-          <p>
-            And I'm not even talking about rare books or collectibles
+            <ul style="font-size: 100%;">
+              <li>Other libraries on Github (none seem suitable for our use case - perhaps because of simple use cases)</li>
+              <li>A microservice just for proxying Companies House and transformations?</li>
+              <li>A new onb-* shared library?</li>
+            </ul>
           </p>
 
+          <aside class="notes">Piggy back on another service was not an option anymore</aside>
         </section>
 
-				<section>
+        <section>
+          <h2>Pros of microservices</h2>
           <p>
-            How many of you know the author H. G. Wells?
+            <ul style="font-size: 100%;">
+              <li>Once deployed it can be used by any other service</li>
+              <li>Since it is on its own infra stack, can utilise redis etc. easily and once</li>
+              <li>For Companies House implementation, it is truly a micro implementation</li>
+            </ul>
           </p>
-          <p>
-            Invisible Man, Time Machine (he coined the term!), War of the Worlds, First Men in the Moon...
-          </p>
-          <p>
-            How many of you know he wrote a history book?
-          </p>
+
+          <aside class="notes"></aside>
         </section>
 
-
-				<section>
+        <section>
+          <h2>Cons of microservices</h2>
           <p>
-            "Outline of History" sold 2 million copies.
+            <ul style="font-size: 100%;">
+              <li>Who will be the owners of this service</li>
+              <li>There's some complexity around authentication/authorisation</li>
+              <li>Getting distributed systems right is hard</li>
+            </ul>
           </p>
-          <p>
-            You don't need to buy expensive copies for investment.
-          </p>
-          <img style="width: 35%;" src="images/outline-of-history1.jpeg" />
 
+          <aside class="notes">Ownership/responsibilities - organisational problems. Performance, reliability, scalability - Distributed systems problems</aside>
         </section>
 
-				<section data-background-iframe="https://www.youtube.com/embed/wwy-bxLZ3lc?si=l3dIhWbGakMTcbRq&amp;start=180&autoplay=true&mute=true" data-background-opacity="0.3">
+        <section>
+          <h2>Pros of libraries</h2>
           <p>
-            What makes a good book/magazine?
+            <ul style="font-size: 100%;">
+              <li>Easy to start, implement</li>
+              <li>Can be integrated to any service very easily</li>
+              <li>Can be used to enrich existing b/e response without an extra network request/redirection</li>
+            </ul>
+          </p>
+
+          <aside class="notes">
             <ul>
-              <li>Content - engaging stories</li>
-              <li>Print quality - paper weight, typesetting, ink quality and binding</li>
-          </p>
+              <li>Don't need to mess around Terraform, get platform involved etc.</li>
+              <li>No need to find an owner of the service</li>
+              <li>Flexible enough to fit into any service (eg. in terms of URL patterns, schemas etc.)</li>
+            </ul>
+          </aside>
         </section>
 
         <section>
-          <h2>New books - properties</h2>
-          <ul>
-            <li>
-              Thin paper not durable
-            </li>
-            <li>
-              Acidic paper has slow burn
-            </li>
-            <li>
-              Glue binding - pages falling off
-            </li>
-            <li>
-              And content up for grabs!
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>New books - reasons</h2>
-          <ul>
-            <li>
-              Modern manufacturing
-            </li>
-            <li>
-              Tiktok/instagram era - attention grabbing
-            </li>
-          </ul>
-        </section>
-
-				<section>
-          <h2>Old books</h2>
-          <ul>
-            <li>
-              Stitched binding
-            </li>
-            <li>
-              Leather covers
-            </li>
-            <li>
-              Heavy paper - original typesetting, sometimes hand-painted pictures
-            </li>
-            <li>
-              Content quality - has it stood the ultimate test (test of time)? Classics are a very good option
-            </li>
-          </ul>
-        </section>
-
-				<section>
-          <h2>How do you find old books?</h2>
-          <ul>
-            <li>
-              your friendly local second-hand bookshop
-            </li>
-            <li>
-              eBay
-            </li>
-            <li>
-              charity shops
-            </li>
-            <li>
-              estate sales
-            </li>
-          </ul>
-        </section>
-
-				<section>
-          <h2>Vintage</h2>
-          <img src="images/vintage.png" style="filter: invert(87%) sepia(11%) saturate(297%) hue-rotate(187deg) brightness(93%) contrast(98%);" />
+          <h2>Cons of libraries</h2>
           <p>
-            lat. harvest of grapes, yield of wine
+            <ul style="font-size: 100%;">
+              <li>Library depends on the using service for infra needs (eg. redis cache)</li>
+              <li>Every library user has to configure it separately</li>
+            </ul>
           </p>
+
+          <aside class="notes"></aside>
         </section>
+
 
 				<section data-background="images/obama-mic-drop.webp" data-background-opacity="0.2">
           <h2>Thanks for<br> coming to my ted talk! 🙇</h2>
+          https://oaknorth-crew.slack.com/archives/C03D3UV6762/p1713421205963699
         </section>
 
 			</div>
