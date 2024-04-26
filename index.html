@@ -24,7 +24,7 @@
           <h4 style="padding: 2em 0;">
             Tayfun Sen
           </h4>
-          <aside class="notes">Press S to start the speakers notes and timer</aside>
+          <aside class="notes">Press S to start the speakers notes and timer. We announced a new library. There's not much to talk about it, but I wanted to take this opportunity to talk about microservice vs library schism.</aside>
         </section>
 
 				<section>
@@ -57,11 +57,11 @@
         </section>
 
         <section>
-          <h2>Back then, what did I do?</h2>
+          <h2>Back then, I</h2>
           <p>
             <ul style="font-size: 100%;">
-              <li>Mostly implement the simplest solution</li>
-              <li>Found a few repos where we use CH, in different ways</li>
+              <li>implemented the simplest solution</li>
+              <li>found a few repos where we use CH, in different ways</li>
               <li><a href="https://oaknorth-bank.atlassian.net/wiki/spaces/PF/pages/305856857/Companies+House+integration">Document and share my learnings</a></li>
               <li>Bide my time :D</li>
             </ul>
@@ -116,7 +116,7 @@
             <ul style="font-size: 100%;">
               <li>Who will be the owners of this service</li>
               <li>There's some complexity around authentication/authorisation</li>
-              <li>Getting distributed systems right is hard</li>
+              <li><a href="https://blogs.newardassociates.com/blog/2023/you-want-modules-not-microservices.html">Getting distributed systems right is hard</a></li>
             </ul>
           </p>
 
@@ -147,17 +147,50 @@
           <p>
             <ul style="font-size: 100%;">
               <li>Library depends on the using service for infra needs (eg. redis cache)</li>
-              <li>Every library user has to configure it separately</li>
+              <li>Every library user has to configure it separately (eg. API keys, redis endpoint etc.)</li>
             </ul>
           </p>
 
           <aside class="notes"></aside>
         </section>
 
+        <section>
+          <h2>We chose to create lib <br> onb-companies-house</h2>
+          <p>
+            <a href="https://oaknorth-crew.slack.com/archives/C03D3UV6762/p1713421205963699"><img style="width: 60%;" src="images/slack-announcement.png" /></a>
+          </p>
+
+          <aside class="notes">Slack announcement</aside>
+        </section>
+
+        <section>
+          <h2>We chose to create lib <br> onb-companies-house</h2>
+          <p>
+            <ul style="font-size: 100%;">
+              <li><a href="https://github.com/oaknorthbank/onb-companies-house/">Simple library</a> only for our use case</li>
+              <li>Adds fuzzy ordering that we wanted</li>
+              <li>Used from <a href="https://github.com/oaknorthbank/term-sheet-service/pull/121/files#diff-a6e85701500628b5f9567ae0e12d73f52f242b3fa44abe356c86368855333695">Term Sheet Service</a> at the moment</li>
+              <li>Hopefully it will be useful!</li>
+            </ul>
+          </p>
+
+          <aside class="notes">Next time someone wants to do this, there's a library in addition to a Confluence doc</aside>
+        </section>
+
+        <section>
+          <h2>We chose to create lib <br> onb-companies-house</h2>
+          <p>
+            <ul style="font-size: 100%;">
+              <li>And more importantly, next time you have a common problem, think about creating a shared library (or a microservice?)</li>
+            </ul>
+          </p>
+
+          <aside class="notes">Next time someone wants to do this, there's a library in addition to a Confluence doc</aside>
+        </section>
+
 
 				<section data-background="images/obama-mic-drop.webp" data-background-opacity="0.2">
           <h2>Thanks for<br> coming to my ted talk! 🙇</h2>
-          https://oaknorth-crew.slack.com/archives/C03D3UV6762/p1713421205963699
         </section>
 
 			</div>
